@@ -5,7 +5,7 @@ services:
     image: mysql:8.0
     container_name: financial_etl_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: financial_etl
       MYSQL_USER: user
       MYSQL_PASSWORD: password

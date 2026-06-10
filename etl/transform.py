@@ -20,11 +20,11 @@ from etl.utils import (
 )
 
 CHANNEL_MAP = {
-    "WEB": "ONLINE",
-    "MOBILE": "ONLINE",
-    "ATM": "OFFLINE",
-    "BRANCH": "OFFLINE",
-    "POS": "OFFLINE",
+    "WEB": "DIGITAL",
+    "MOBILE": "DIGITAL",
+    "ATM": "PHYSICAL",
+    "BRANCH": "PHYSICAL",
+    "POS": "PHYSICAL",
     "CALL_CENTER": "OTHER",
     "PHONE": "OTHER",
 }
@@ -128,7 +128,6 @@ def cleanse_row(raw):
         errors.append({"error_type": "INVALID_VALUE", "error_field": "transaction_date", "error_reason": "Invalid or missing transaction date."})
 
     cleaned["transaction_time"] = parse_time(raw.get("transaction_time")) or "00:00:00"
-    cleaned["transaction_channel"] = normalize_enum(raw.get("transaction_channel"), CHANNEL_MAP, default="OTHER")
     cleaned["channel_category"] = CHANNEL_MAP.get(cleaned["transaction_channel"], "OTHER")
     cleaned["currency"] = validate_currency(raw.get("currency")) or BASE_CURRENCY
     if not validate_currency(raw.get("currency")):

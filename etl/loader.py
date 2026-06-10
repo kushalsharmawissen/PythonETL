@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 
 from sqlalchemy import create_engine, select
 from sqlalchemy.exc import IntegrityError
@@ -24,7 +24,7 @@ def create_tables():
 
 
 def insert_failed(session, raw, error_type, error_field, error_reason):
-    load_timestamp = datetime.utcnow()
+    load_timestamp = datetime.now(timezone.utc)
     failed = FailedTransaction(
         transaction_id=raw.get("transaction_id"),
         transaction_date=raw.get("transaction_date"),
@@ -43,7 +43,7 @@ def insert_failed(session, raw, error_type, error_field, error_reason):
 
 def get_or_create_customer(session, cleaned):
     existing = session.get(Customer, cleaned["customer_id"])
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     if existing:
         changed = (
@@ -92,7 +92,7 @@ def get_or_create_customer(session, cleaned):
 
 def get_or_create_account(session, cleaned):
     existing = session.get(Account, cleaned["account_id"])
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     if existing:
         changed = existing.account_type != cleaned["account_type"]
@@ -131,7 +131,7 @@ def get_or_create_merchant(session, cleaned):
         Merchant.merchant_country == cleaned["merchant_country"],
     )
     merchant = session.execute(stmt).scalar_one_or_none()
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     if merchant:
         return merchant, False
 
