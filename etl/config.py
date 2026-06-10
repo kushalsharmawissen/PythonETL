@@ -6,8 +6,8 @@ CSV_PATH = ROOT_DIR / "sample_transactions.csv"
 
 DATABASE_URL = URL.create(
     drivername="mysql+pymysql",
-    username="etl_user",
-    password="secret",
+    username="user",
+    password="password",
     host="127.0.0.1",
     port=3306,
     database="financial_etl",
