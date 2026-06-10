@@ -7,7 +7,7 @@ This repository contains a Python ETL pipeline that ingests a flat financial CSV
 - `docker-compose.yaml` — spins up a MySQL 8.0 instance.
 - `sample_transactions.csv` — sample source CSV with valid and invalid rows.
 - `requirements.txt` — project dependencies.
-- `setup_env.sh` — creates the local `uv` environment and installs dependencies.
+- `setup_env.bat` — creates the local `uv` environment and installs dependencies.
 - `etl/` — Python ETL package.
 
 ## Getting started
@@ -21,8 +21,7 @@ docker-compose up -d
 2. Install dependencies:
 
 ```bash
-chmod +x setup_env.sh
-./setup_env.sh
+setup_env.bat
 ```
 
 3. Run the pipeline:
