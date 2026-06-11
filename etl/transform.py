@@ -63,6 +63,8 @@ CUSTOMER_SEGMENT_MAP = {
     "RETAIL": "RETAIL",
     "CORPORATE": "CORPORATE",
     "WEALTH": "WEALTH",
+    "NRI": "NRI",
+    "HNI": "HNI",
 }
 
 RECURRING_MAP = {
@@ -128,6 +130,7 @@ def cleanse_row(raw):
         errors.append({"error_type": "INVALID_VALUE", "error_field": "transaction_date", "error_reason": "Invalid or missing transaction date."})
 
     cleaned["transaction_time"] = parse_time(raw.get("transaction_time")) or "00:00:00"
+    cleaned["transaction_channel"] = strip_value(raw.get("transaction_channel")) or DEFAULT_DIMENSION_VALUE
     cleaned["channel_category"] = CHANNEL_MAP.get(cleaned["transaction_channel"], "OTHER")
     cleaned["currency"] = validate_currency(raw.get("currency")) or BASE_CURRENCY
     if not validate_currency(raw.get("currency")):

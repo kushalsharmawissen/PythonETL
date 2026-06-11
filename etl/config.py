@@ -13,6 +13,5 @@ DATABASE_URL = URL.create(
     database="financial_etl",
 )
 
-BATCH_SIZE = 100
 BASE_CURRENCY = "INR"
 DEFAULT_TIMEZONE = "Asia/Kolkata"

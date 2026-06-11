@@ -1,0 +1,15 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# SQLAlchemy / DB artifacts
+*.db
+
+# Environment files
+.env
+.venv/
+venv/
+
+# Editor / OS files
+.vscode/
+.DS_Store

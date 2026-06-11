@@ -51,25 +51,22 @@ def get_or_create_customer(session, cleaned):
             or existing.customer_email != cleaned["customer_email"]
             or existing.customer_phone != cleaned["customer_phone"]
             or existing.customer_segment != cleaned["customer_segment"]
+            or existing.customer_timezone != cleaned["customer_timezone"]
+            or existing.rewards_points_earned != cleaned["rewards_points_earned"]
         )
         if changed:
-            existing.is_active = "N"
-            new_customer = Customer(
-                customer_id=cleaned["customer_id"],
-                customer_name=cleaned["customer_name"],
-                customer_email=cleaned["customer_email"],
-                customer_phone=cleaned["customer_phone"],
-                customer_segment=cleaned["customer_segment"],
-                customer_timezone=cleaned["customer_timezone"],
-                rewards_points_earned=cleaned["rewards_points_earned"],
-                rewards_tier=cleaned["rewards_tier"],
-                effective_date=date.today(),
-                is_active="Y",
-                load_timestamp=now,
-            )
-            session.add(new_customer)
+            existing.customer_name = cleaned["customer_name"]
+            existing.customer_email = cleaned["customer_email"]
+            existing.customer_phone = cleaned["customer_phone"]
+            existing.customer_segment = cleaned["customer_segment"]
+            existing.customer_timezone = cleaned["customer_timezone"]
+            existing.rewards_points_earned = cleaned["rewards_points_earned"]
+            existing.rewards_tier = cleaned["rewards_tier"]
+            existing.effective_date = date.today()
+            existing.is_active = "Y"
+            existing.load_timestamp = now
             session.flush()
-            return new_customer, True
+            return existing, True
         return existing, False
 
     customer = Customer(
@@ -97,18 +94,13 @@ def get_or_create_account(session, cleaned):
     if existing:
         changed = existing.account_type != cleaned["account_type"]
         if changed:
-            existing.is_active = "N"
-            new_account = Account(
-                account_id=cleaned["account_id"],
-                account_type=cleaned["account_type"],
-                customer_id=cleaned["customer_id"],
-                effective_date=date.today(),
-                is_active="Y",
-                load_timestamp=now,
-            )
-            session.add(new_account)
+            existing.account_type = cleaned["account_type"]
+            existing.customer_id = cleaned["customer_id"]
+            existing.effective_date = date.today()
+            existing.is_active = "Y"
+            existing.load_timestamp = now
             session.flush()
-            return new_account, True
+            return existing, True
         return existing, False
 
     account = Account(

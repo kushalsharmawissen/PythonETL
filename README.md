@@ -21,7 +21,7 @@ docker-compose up -d
 2. Install dependencies:
 
 ```bash
-setup_env.bat
+.\setup_env.bat
 ```
 
 3. Run the pipeline:
